@@ -276,8 +276,10 @@ class MainScene extends Phaser.Scene {
       this.sounds.clean_goal.play();
       if (!this.bonus) {
         this.bonus = 2;
-      } else {
+      } else if (this.bonus < 100) {
         this.bonus *= 2;
+      } else {
+        this.bonus = 100;
       }
     }
     this.isGoal = true;
