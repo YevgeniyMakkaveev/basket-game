@@ -108,7 +108,7 @@ class MainScene extends Phaser.Scene {
   pinCollide() {
     this.isPinCollide = true;
     this.sounds.ring_impact.play();
-    let ringStartY = this.centerY + 136;
+    let ringStartY = this.centerY + 138;
     let ringOffsetY = -10;
     this.tweens.add({
       targets: this.ring,
@@ -151,7 +151,7 @@ class MainScene extends Phaser.Scene {
       this.BallStartPointY,
       "ball"
     );
-    this.ballRadius = 100;
+    this.ballRadius = 90;
     this.ball.body.setCircle(this.ballRadius, 0, 0);
     this.ballSetInterective();
     this.ball.body.setBounce(0.8);
@@ -255,8 +255,8 @@ class MainScene extends Phaser.Scene {
       const plusOrMinus = Math.random() < 0.5 ? -1 : 1;
       const randomOffset = Math.floor(Math.random() * 10 + 15) * plusOrMinus;
       this.ring.x = this.ring.x + randomOffset;
-      this.rightPin.x = this.rightPin.x + randomOffset;
-      this.leftPin.x = this.leftPin.x + randomOffset;
+      this.rightPin.x += randomOffset;
+      this.leftPin.x += randomOffset;
     }
   };
   ringReset() {
