@@ -343,7 +343,6 @@ class MainScene extends Phaser.Scene {
       this.ball.x <= this.rightPin.x - 100
     ) {
       this.goal();
-      console.log(this.ball.x, this.ball.y, this.leftPin.x, this.rightPin.x);
     }
   }
 }
@@ -361,7 +360,7 @@ let config = {
     default: "arcade",
     arcade: {
       gravity: { y: 4000 },
-      debug: true,
+      debug: false,
     },
   },
   backgroundColor: 0xa8dad9,
