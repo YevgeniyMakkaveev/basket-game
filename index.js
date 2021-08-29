@@ -277,7 +277,7 @@ class MainScene extends Phaser.Scene {
       if (!this.bonus) {
         this.bonus = 2;
       } else if (this.bonus < 100) {
-        this.bonus *= 2;
+        this.bonus += 2;
       } else {
         this.bonus = 100;
       }
