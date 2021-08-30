@@ -3,7 +3,7 @@ class MainScene extends Phaser.Scene {
     super("Main");
     console.log("Scene".this);
   }
-  init() {
+  init = () => {
     this.centerX = 320;
     this.centerY = 320;
     this.scoreCount = null;
@@ -11,8 +11,8 @@ class MainScene extends Phaser.Scene {
     this.basketCount = this.game.data.basketCount || 0;
     this.bonus = null;
     this.initFont();
-  }
-  initFont() {
+  };
+  initFont = () => {
     this.countStyle = {
       font: "10em montserrat",
       fill: "white",
@@ -25,8 +25,8 @@ class MainScene extends Phaser.Scene {
       font: "4em montserrat",
       fill: "#FFDA87",
     };
-  }
-  preload() {
+  };
+  preload = () => {
     this.load.image("shield", "assets/sprites/shield.png");
     this.load.image("floor", "assets/sprites/floor.png");
     this.load.image("ball", "assets/sprites/ball.png");
@@ -46,8 +46,8 @@ class MainScene extends Phaser.Scene {
       "https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexdragplugin.min.js",
       true
     );
-  }
-  create() {
+  };
+  create = () => {
     this.shield = this.add.image(80, 200, "shield").setOrigin(0);
     this.ring = this.add
       .image(this.centerX, this.centerY + 136, "ring")
@@ -60,10 +60,11 @@ class MainScene extends Phaser.Scene {
     this.ballReset();
     this.addColide();
     this.addCounter();
+    this.createMenu();
     this.createSound();
-  }
+  };
 
-  createPins() {
+  createPins = () => {
     this.leftPin = this.add
       .circle(this.ring.x + 35, this.ring.y + 127)
       .setName("leftPin");
@@ -76,8 +77,8 @@ class MainScene extends Phaser.Scene {
     this.leftPin.body.allowGravity = false;
     this.rightPin.body.setCircle(6).setImmovable();
     this.rightPin.body.allowGravity = false;
-  }
-  createSound() {
+  };
+  createSound = () => {
     this.sounds = {
       ball_bounce: this.sound.add("ball_bounce", { volume: 0.5 }),
       aaaaa: this.sound.add("aaaaa", { volume: 0.5 }),
@@ -87,9 +88,9 @@ class MainScene extends Phaser.Scene {
       ring_impact: this.sound.add("ring_impact", { volume: 0.5 }),
       woosh: this.sound.add("woosh", { volume: 0.5 }),
     };
-  }
+  };
 
-  addColide() {
+  addColide = () => {
     this.physics.add.collider(
       this.ball,
       this.leftPin,
@@ -104,8 +105,8 @@ class MainScene extends Phaser.Scene {
       this.targetCollideControl,
       this
     );
-  }
-  pinCollide() {
+  };
+  pinCollide = () => {
     this.isPinCollide = true;
     this.sounds.ring_impact.play();
     let ringStartY = this.centerY + 138;
@@ -121,13 +122,22 @@ class MainScene extends Phaser.Scene {
         this.ring.y = ringStartY;
       },
     });
-  }
-  targetCollideControl() {
+  };
+  targetCollideControl = () => {
     if (this.ball.depth === 20) {
       return false;
     }
-  }
-  addCounter() {
+  };
+  createMenu = () => {
+    this.menu = this.add.image(60, 60, "menu");
+    this.menu
+      .setInteractive()
+      .on("pointerdown", function (pointer, localX, localY) {
+        console.log("menu", this);
+      });
+  };
+
+  addCounter = () => {
     this.scoreCounter = this.add
       .text(320, 290, this.scoreCount, this.countStyle)
       .setOrigin(0.5);
@@ -142,7 +152,7 @@ class MainScene extends Phaser.Scene {
       .text(145, 502, this.basketCount, this.miniCountStyle)
       .setOrigin(0, 0.5)
       .setAlign("left");
-  }
+  };
   createBall() {
     this.BallStartPointX = this.centerX;
     this.BallStartPointY = 872;
